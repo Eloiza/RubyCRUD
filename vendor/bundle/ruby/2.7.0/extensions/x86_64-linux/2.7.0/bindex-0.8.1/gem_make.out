@@ -1,0 +1,15 @@
+current directory: /home/ers17/Desktop/Web/Trabalho5-WEB/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+/home/ers17/.rvm/rubies/ruby-2.7.0/bin/ruby -I /home/ers17/.rvm/rubies/ruby-2.7.0/lib/ruby/2.7.0 -r ./siteconf20210326-12637-ai7v0x.rb extconf.rb
+creating Makefile
+
+current directory: /home/ers17/Desktop/Web/Trabalho5-WEB/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" clean
+
+current directory: /home/ers17/Desktop/Web/Trabalho5-WEB/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR="
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /home/ers17/Desktop/Web/Trabalho5-WEB/vendor/bundle/ruby/2.7.0/gems/bindex-0.8.1/ext/skiptrace
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20210326-12637-bxa5am/skiptrace/internal
