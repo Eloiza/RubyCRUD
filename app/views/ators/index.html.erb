@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+	<title>Filme App</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<!-- Importando jquery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Importando Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <style type="text/css">
+    	h1, h2, h3{
+    		font-family: Montserrat;
+    		padding-bottom: 20px;
+    		padding-top: 20px;
+    		/*padding-left: 20px;*/
+    	}
+    	.table{
+    		width: auto;
+    		margin-left: auto;
+    		margin-right: auto;
+    	}
+    	.container-fluid{
+			padding-top: 50px;
+			padding-bottom: 10px;
+			margin-left: 0px;
+			padding-left: 80px;
+		}
+
+		.btn{
+			font-size: 18px;
+			/*width: 20%;*/
+			float:left;
+
+			/*margin: 0;*/
+			/*position: relative;*/
+			/*left: 455px;*/
+		}
+
+		.small-btn{
+			font-size: 15px;
+			margin-left: 10px;
+		}
+
+    </style>
+</head>
+
+
+<body>
+	<div class="container-fluid bg-grey">
+		<h1>Tabela Atores</h1>
+	</div>
+
+	<div class="container-fluid">
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="bg-success">
+				<tr>
+					<th class="text-center">Nome</th>
+					<th class="text-center">Idade</th>
+					<th class="text-center">Sexo</th>
+					<th class="text-center">Filmes</th>
+					<th class="text-center">Opções</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @atores.each do |ator| %>
+					<tr>
+						<td><%= ator.nome%></td>
+						<td><%= ator.idade%></td>
+						<td><%= ator.genero%></td>
+						<% @atuacao = ator.filmes%>
+						<% @concat = ''%>
+						<% @count = 1%>
+						<% @atuacao.each do |att|%>
+							<%if @count == @atuacao.count%>
+								<%@concat = @concat + att.titulo_original%>
+							<%else%>
+								<%@concat = @concat + att.titulo_original + ', '%>
+							<%end%>
+
+							<%@count = @count + 1 %>
+						<%end%>
+						<td><%= @concat%></td>
+
+						<td align="center"><%= link_to '<button type="button" class="btn btn-light small-btn">Ver</button>'.html_safe, ator %>
+										   <%= link_to '<button type="button" class="btn btn-info small-btn">Editar</button>'.html_safe, edit_ator_path(ator)%>
+										   <%= link_to '<button type="button" class="btn btn-danger small-btn">Deletar</button>'.html_safe, ator_path(ator), method: :delete, data:{ confirm: "Tem certeza?"} %> </td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+
+	<br>
+
+	<div class="container-fluid">
+		<%= link_to '<button type="button" class="btn btn-light">Voltar</button>'.html_safe, root_path %>
+
+		<%= link_to '<button type="button" class="btn btn-success">Novo Ator</button>'.html_safe, new_ator_path %>
+	</div>
+
+</body>
+</html>

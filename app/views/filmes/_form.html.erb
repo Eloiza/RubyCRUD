@@ -1,0 +1,70 @@
+<%= form_with model: filme do |form| %>
+  <div class= "row">
+    <div class="col-xs-6">
+      <%= form.label "Titulo Original" %><br>
+      <%= form.text_field :titulo_original, :class => "form-control" %>
+      <% filme.errors.full_messages_for(:titulo_original).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+  <div class= "row">
+    <div class="col-xs-6">
+      <%= form.label "Titulo PTBR" %><br>
+      <%= form.text_field :titulo_ptbr, :class => "form-control" %><br>
+      <% filme.errors.full_messages_for(:titulo_ptbr).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= form.label "Ano de Lançamento" %><br>
+      <%= form.text_field :ano_lancamento, :class => "form-control" %><br>
+      <% filme.errors.full_messages_for(:ano_lancamento).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+  
+  <div class="row">
+    <div class="col-xs-6">
+      <%= form.label "Genêro" %>
+      <%= form.collection_select(:genero_id, Genero.all, :id, :nome, {include_blank: false}, {class: "form-control"}) %>
+      <br>
+    </div>
+    <div class="col-xs-3">
+      <br>
+      <br>
+      <%= link_to "Novo Genero", new_genero_path %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= form.label :produtor %>
+      <%= form.collection_select(:produtor_id, Produtor.all, :id, :nome, {include_blank: false}, {class: "form-control"}) %>
+    </div>
+    <div class="col-xs-3">
+      <br>
+      <br>
+      <%= link_to "Novo Produtor", new_produtor_path %>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

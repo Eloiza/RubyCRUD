@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  titulo_original: MyString
+  titulo_ptbr: MyString
+  ano_lancamento: 1
+  genero: one
+  produtor: one
+
+two:
+  titulo_original: MyString
+  titulo_ptbr: MyString
+  ano_lancamento: 1
+  genero: two
+  produtor: two

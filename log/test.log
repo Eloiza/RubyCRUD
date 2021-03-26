@@ -1,0 +1,177 @@
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (434.6ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (441.6ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (452.3ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (453.4ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (419.3ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (453.6ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (509.3ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afilmes" ("id" integer NOT NULL PRIMARY KEY, "titulo_original" varchar DEFAULT NULL, "titulo_ptbr" varchar DEFAULT NULL, "ano_lancamento" integer DEFAULT NULL, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_afilmes_on_produtor_id" ON "afilmes" ("produtor_id")[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE INDEX "tindex_afilmes_on_genero_id" ON "afilmes" ("genero_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "afilmes" ("id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at")
+                     SELECT "id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at" FROM "filmes"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "filmes"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer NOT NULL PRIMARY KEY, "titulo_original" varchar DEFAULT NULL, "titulo_ptbr" varchar DEFAULT NULL, "ano_lancamento" integer DEFAULT NULL, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ff7b2179dd"
+FOREIGN KEY ("genero_id")
+  REFERENCES "generos" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "filmes" ("id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at")
+                     SELECT "id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at" FROM "afilmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "afilmes"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (174.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = ON[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = OFF[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TEMPORARY TABLE "afilmes" ("id" integer NOT NULL PRIMARY KEY, "titulo_original" varchar DEFAULT NULL, "titulo_ptbr" varchar DEFAULT NULL, "ano_lancamento" integer DEFAULT NULL, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_afilmes_on_produtor_id" ON "afilmes" ("produtor_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "tindex_afilmes_on_genero_id" ON "afilmes" ("genero_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "afilmes" ("id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at")
+                     SELECT "id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at" FROM "filmes"[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE "filmes"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer NOT NULL PRIMARY KEY, "titulo_original" varchar DEFAULT NULL, "titulo_ptbr" varchar DEFAULT NULL, "ano_lancamento" integer DEFAULT NULL, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_ff7b2179dd"
+FOREIGN KEY ("genero_id")
+  REFERENCES "generos" ("id")
+, CONSTRAINT "fk_rails_f20c8ecda7"
+FOREIGN KEY ("produtor_id")
+  REFERENCES "produtors" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (0.2ms)[0m  [1m[32mINSERT INTO "filmes" ("id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at")
+                     SELECT "id","titulo_original","titulo_ptbr","ano_lancamento","genero_id","produtor_id","created_at","updated_at" FROM "afilmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE "afilmes"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA defer_foreign_keys = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mPRAGMA foreign_keys = 1[0m
+  [1m[36mTRANSACTION (272.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (262.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (105.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20210323211855)[0m
+  [1m[35m (113.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20210323211346),
+(20210323211400),
+(20210323211425),
+(20210323211554);
+
+[0m
+  [1m[35m (198.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "test"], ["created_at", "2021-03-23 21:20:24.941109"], ["updated_at", "2021-03-23 21:20:24.941109"]]
+  [1m[36mTRANSACTION (162.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "schema_sha1"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "schema_sha1"], ["value", "110885ae53cbaff77c30389669f590a9e46fa1fd"], ["created_at", "2021-03-23 21:20:25.110212"], ["updated_at", "2021-03-23 21:20:25.110212"]]
+  [1m[36mTRANSACTION (194.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators"[0m
+  [1m[35m (437.5ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (437.4ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (437.3ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (437.4ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (548.5ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (548.1ms)[0m  [1m[35mCREATE TABLE "ators" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "idade" integer, "genero" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "ators_filmes"[0m
+  [1m[35m (411.3ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (411.3ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (411.5ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (411.2ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (416.4ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (416.5ms)[0m  [1m[35mCREATE TABLE "ators_filmes" ("ator_id" integer NOT NULL, "filme_id" integer NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "filmes"[0m
+  [1m[35m (455.0ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (454.8ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (455.0ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (455.0ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (449.7ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (449.8ms)[0m  [1m[35mCREATE TABLE "filmes" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "titulo_original" varchar, "titulo_ptbr" varchar, "ano_lancamento" integer, "genero_id" integer NOT NULL, "produtor_id" integer NOT NULL, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (433.7ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (433.7ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (433.6ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (433.9ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (439.6ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (439.6ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_genero_id" ON "filmes" ("genero_id")[0m
+  [1m[35m (537.0ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (537.1ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (537.5ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (537.4ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (531.3ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (531.4ms)[0m  [1m[35mCREATE INDEX "index_filmes_on_produtor_id" ON "filmes" ("produtor_id")[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "generos"[0m
+  [1m[35m (433.1ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (433.1ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (432.7ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (432.4ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (371.1ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (371.5ms)[0m  [1m[35mCREATE TABLE "generos" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "produtors"[0m
+  [1m[35m (299.9ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (299.8ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (299.9ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (299.5ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (300.5ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[35m (300.5ms)[0m  [1m[35mCREATE TABLE "produtors" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "nome" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m

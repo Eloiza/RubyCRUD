@@ -1,0 +1,14 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+ /*
+ *= require_tree .
+ *= require_self
+ */
+
+ h1, h2, h3{
+	font-family: "Montserrat", "sans-serif";
+	/*color: #009e4c;*/
+	padding-bottom: 20px;
+}

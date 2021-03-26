@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+	<title>Filme App</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<!-- Importando jquery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Importando Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <style type="text/css">
+    	h1, h2, h3{
+    		font-family: Montserrat;
+    		padding-bottom: 20px;
+    		padding-top: 20px;
+    		/*padding-left: 20px;*/
+    	}
+    	.table{
+    		width: 50%;
+    		margin-left: auto;
+    		margin-right: auto;
+    	}
+    	.container-fluid{
+			padding-top: 10px;
+			padding-bottom: 10px;
+			margin-left: 0px;
+			padding-left: 80px;
+		}
+
+		.btn{
+			font-size: 18px;
+			width: 20%;
+			/*position: center;*/
+
+			/*margin: 0;*/
+			position: relative;
+			/*position: center;*/
+			left: 455px;
+		}
+    </style>
+</head>
+
+<body>
+	<div class="container-fluid text-center text-container bg-grey">
+		<h1 style= "font-family: Montserrat;" >Programação Web - Trabalho 5</h1>
+		<h2>Eloiza Rossetto - GRR20173522</h2>
+	</div>
+		
+	<div class="container-fluid text-center text-container">
+		<h2>Descrição</h2>
+		<p>Esse site foi implementado para a disciplina de Programação WEB. Nele é possível consultar tabelas de um banco de dados. O banco possui as tabelas: filmes, atores, generos e produtores. O esquema pode ser explicado a partir da tabela filmes. A tabela filmes possui a relação 1:1 para a tabela de produtores, n:1 para a tabela Generos e n:n para a tabela atores. A baixo foi listado as tabelas do banco, as operações de CRUD ficam disponíveis ao clicar no botão "Editar Tabela". A implementação desse site pode ser encontrada no github <a href="https://github.com/Eloiza/RubyCRUD" target="_blank">clicando aqui!</a> </p>
+	</div>
+
+
+	<div class="container-fluid">
+		<h2>Tabela Filmes</h2>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="bg-success">
+				<tr>
+					<th class="text-center">Título Original</th>
+					<th class="text-center">Título Ptbr</th>
+					<th class="text-center">Lançamento</th>
+					<th class="text-center">Gênero</th>
+					<th class="text-center">Produtor</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @filmes.each do |filme| %>
+					<tr>
+						<td><%= filme.titulo_original%></td>
+						<td><%= filme.titulo_ptbr%></td>
+						<td><%= filme.ano_lancamento%></td>
+						<td><%= filme.genero.nome%></td>
+						<td><%= filme.produtor.nome%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<br>	
+ 		<%= link_to '<button type="button"  class="btn btn-success">Editar Tabela</button>'.html_safe, filmes_path%>
+		<br>
+	
+	</div>
+	
+	<div class="container-fluid">
+		<h2>Tabela Atores</h2>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="bg-success">
+				<tr>
+					<th class="text-center">Nome</th>
+					<th class="text-center">Idade</th>
+					<th class="text-center">Sexo</th>
+					<th class="text-center">Filmes</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @atores.each do |ator| %>
+					<tr>
+						<td><%= ator.nome%></td>
+						<td><%= ator.idade%></td>
+						<td><%= ator.genero%></td>
+						<% @atuacao = ator.filmes%>
+						<% @concat = ''%>
+						<% @count = 1%>
+						<% @atuacao.each do |att|%>
+							<%if @count == @atuacao.count%>
+								<%@concat = @concat + att.titulo_original%>
+							<%else%>
+								<%@concat = @concat + att.titulo_original + ', '%>
+							<%end%>
+
+							<%@count = @count + 1 %>
+						<%end%>
+						<td><%= @concat%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	
+		<br>
+		<%= link_to '<button type="button" class="btn btn-success">Editar Tabela</button>'.html_safe, ators_path%>
+		<br>
+	</div>
+
+	<div class="container-fluid">
+		<h2>Tabela Produtores</h2>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="bg-success">
+				<tr>
+					<th class="text-center">ID</th>
+					<th class="text-center">Nome</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @produtores.each do |produtor| %>
+					<tr>
+						<td><%= produtor.id%></td>
+						<td><%= produtor.nome%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<br>
+		<%= link_to '<button type="button" class="btn btn-success">Editar Tabela</button>'.html_safe, produtors_path%>
+		<br>
+	</div>
+
+	<div class="container-fluid">
+		<h2>Tabela Genêros</h2>
+
+		<table class="table table-bordered table-striped table-hover">
+			<thead class="bg-success">
+				<tr>
+					<th class="text-center">ID</th>
+					<th class="text-center">Nome</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<% @generos.each do |genero| %>
+					<tr>
+						<td><%= genero.id%></td>
+						<td><%= genero.nome%></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<br>
+		<%= link_to '<button type="button" class="btn btn-success">Editar Tabela</button>'.html_safe, generos_path%>
+		<br>
+	</div>
+</body>
+
+</html>

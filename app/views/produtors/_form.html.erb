@@ -1,0 +1,19 @@
+<%= form_with model: produtor do |form| %>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= form.label "Nome" %><br>
+      <%= form.text_field :nome, :class => "form-control" %>
+      <% produtor.errors.full_messages_for(:nome).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+
+    <br>      
+    <br>      
+
+  <div>     
+    <%= form.submit %>
+  </div>
+<% end %>

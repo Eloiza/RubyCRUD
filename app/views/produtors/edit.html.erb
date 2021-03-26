@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+	<title>Filme App</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+		<!-- Importando jquery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Importando Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <style type="text/css">
+    	h1, h2, h3{
+    		font-family: Montserrat;
+    		padding-bottom: 20px;
+    		padding-top: 20px;
+    		/*padding-left: 20px;*/
+    	}
+
+    	.table{
+    		width: auto;
+    		/*margin-left: auto;*/
+    		/*margin-right: auto;*/
+    	}
+    	.container-fluid{
+			padding-top: 50px;
+			padding-bottom: 10px;
+			margin-left: 0px;
+			padding-left: 80px;
+		}
+
+		.btn{
+			font-size: 18px;
+			/*width: 20%;*/
+			float:left;
+
+			/*margin: 0;*/
+			/*position: relative;*/
+			/*left: 455px;*/
+		}
+
+		.small-btn{
+			font-size: 15px;
+			margin-left: 10px;
+		}
+
+    </style>
+</head>
+
+<body>
+	<div class="container-fluid bg-grey">
+		<h1>Editar Produtor</h1>
+	</div>
+
+	<div class="container-fluid">
+		<%= render "form", produtor: @produtor %>
+	</div>
+	
+</body>
+</html>

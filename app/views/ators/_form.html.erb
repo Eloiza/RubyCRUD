@@ -1,0 +1,56 @@
+<%= form_with model: ator do |form| %>
+  <div class= "row">
+    <div class="col-xs-6">
+      <%= form.label "Nome" %><br>
+      <%= form.text_field :nome, :class => "form-control"%>
+      <%  ator.errors.full_messages_for(:nome).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">  
+      <%= form.label "Idade" %><br>
+      <%= form.number_field :idade, :class => "form-control"%>
+      <% ator.errors.full_messages_for(:idade).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= form.label "Sexo" %><br>
+      <%= form.radio_button(:genero, "M") %>
+      <%= form.label(:genero, "Masculino", style: 'font-size: 15px; margin-right:50px; padding-right: 10px;') %>
+      <%= form.radio_button(:genero, "F") %>
+      <%= form.label(:age_adult, "Feminino") %>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= form.label "Filme" %>
+      <%= form.collection_select(:filme_id, Filme.all, :id, :titulo_original, {include_blank: false}, {:multiple => true, class: "form-control"}) %>
+  
+      <br>
+      
+      <%= link_to "Novo Filme", new_filme_path %>
+    </div>
+
+  </div>
+
+  <br>
+  <br>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,18 @@
+<%= form_with model: ators_filmes do |form| %>
+
+  <div>
+    <%= form.label "Selecionar Ator" %><br>
+    <%= form.collection_select(:ator_id, Ator.all, :id, :nome) %>
+    <%= link_to "Novo Ator", new_ator_path %>
+  </div>
+
+  <div>
+    <%= form.label "Selecionar Filme" %><br>
+    <%= form.collection_select(:filme_id, Filme.all, :id, :titulo_original) %>
+    <%= link_to "Novo Filme", new_filme_path %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
